@@ -1,0 +1,179 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Preparation - AI FutureStep</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">AI FutureStep</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}"><i class="fas fa-home me-1"></i>Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'about' %}"><i class="fas fa-info-circle me-1"></i>About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'resume_analysis' %}"><i class="fas fa-file-alt me-1"></i>Resume Analysis</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'interview_prep' %}"><i class="fas fa-comments me-1"></i>Interview Preparation</a></li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle me-1"></i>{{ user.username }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-10 mx-auto">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="mb-0"><i class="fas fa-comments me-2"></i>Interview Preparation</h2>
+                    </div>
+                    <div class="card-body">
+                        <ul class="nav nav-tabs" id="interviewTabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-bs-toggle="tab" href="#interview-questions">
+                                    <i class="fas fa-question-circle me-1"></i>Interview Questions
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#coding">
+                                    <i class="fas fa-code me-1"></i>Coding Challenges
+                                </a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content mt-3">
+                            <!-- Interview Questions Tab -->
+                            <div class="tab-pane fade show active" id="interview-questions">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h3>Common Interview Questions</h3>
+                                        <div id="general-questions">
+                                            <div class="mb-4">
+                                                <h5>1. Tell me about yourself.</h5>
+                                                <p><strong>Answer:</strong> Provide a brief overview of your education, experience, skills, and career goals.</p>
+                                            </div>
+                                            <div class="mb-4">
+                                                <h5>2. What are your strengths?</h5>
+                                                <p><strong>Answer:</strong> Highlight key skills that match the job role, with examples.</p>
+                                            </div>
+                                            <div class="mb-4">
+                                                <h5>3. What are your weaknesses?</h5>
+                                                <p><strong>Answer:</strong> Share a minor weakness and how you are improving it.</p>
+                                            </div>
+                                            <div class="mb-4">
+                                                <h5>4. Why do you want to work here?</h5>
+                                                <p><strong>Answer:</strong> Align your goals with the company's mission and vision.</p>
+                                            </div>
+                                            <div class="mb-4">
+                                                <h5>5. Where do you see yourself in 5 years?</h5>
+                                                <p><strong>Answer:</strong> Share your future plans that show growth and commitment.</p>
+                                            </div>
+                                        </div>
+
+                                        <hr class="my-4">
+
+                                        <h3>Hard / Advanced Interview Questions</h3>
+                                        <div id="hard-questions">
+                                            <div class="mb-4">
+                                                <h5>1. Explain a challenging project you worked on and how you handled obstacles.</h5>
+                                                <p><strong>Answer:</strong> Describe the complexity, challenges faced, your solution approach, and results.</p>
+                                            </div>
+                                            <div class="mb-4">
+                                                <h5>2. How do you stay updated with the latest trends in technology?</h5>
+                                                <p><strong>Answer:</strong> Mention online courses, certifications, GitHub projects, blogs, etc.</p>
+                                            </div>
+                                            <div class="mb-4">
+                                                <h5>3. How would you optimize a slow-performing application?</h5>
+                                                <p><strong>Answer:</strong> Identify bottlenecks (database, algorithms), optimize queries/code, and use caching.</p>
+                                            </div>
+                                            <div class="mb-4">
+                                                <h5>4. Describe SOLID principles and why they are important.</h5>
+                                                <p><strong>Answer:</strong> Explain Single Responsibility, Open-Closed, Liskov Substitution, Interface Segregation, Dependency Inversion.</p>
+                                            </div>
+                                            <div class="mb-4">
+                                                <h5>5. How would you design a scalable URL shortening service (like Bit.ly)?</h5>
+                                                <p><strong>Answer:</strong> Discuss API design, hashing, database scaling, caching, load balancing.</p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Coding Challenges Tab -->
+                            <div class="tab-pane fade" id="coding">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h3>Coding Challenges</h3>
+                                        <div id="coding-challenges">
+                                            <div class="mb-4">
+                                                <h5>1. Two Sum</h5>
+                                                <p>Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.</p>
+                                                <a href="https://leetcode.com/problems/two-sum/" target="_blank" class="btn btn-primary">Solve on LeetCode</a>
+                                            </div>
+                                            <div class="mb-4">
+                                                <h5>2. Longest Substring Without Repeating Characters</h5>
+                                                <p>Given a string s, find the length of the longest substring without repeating characters.</p>
+                                                <a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/" target="_blank" class="btn btn-primary">Solve on LeetCode</a>
+                                            </div>
+                                            <div class="mb-4">
+                                                <h5>3. Merge Two Sorted Lists</h5>
+                                                <p>Merge two sorted linked lists and return it as a new sorted list.</p>
+                                                <a href="https://leetcode.com/problems/merge-two-sorted-lists/" target="_blank" class="btn btn-primary">Solve on LeetCode</a>
+                                            </div>
+                                            <div class="mb-4">
+                                                <h5>4. Maximum Subarray</h5>
+                                                <p>Find the contiguous subarray which has the largest sum and return its sum.</p>
+                                                <a href="https://leetcode.com/problems/maximum-subarray/" target="_blank" class="btn btn-primary">Solve on LeetCode</a>
+                                            </div>
+                                            <div class="mb-4">
+                                                <h5>5. Word Ladder</h5>
+                                                <p>Given two words (beginWord and endWord), and a dictionary's word list, find the shortest transformation sequence from beginWord to endWord.</p>
+                                                <a href="https://leetcode.com/problems/word-ladder/" target="_blank" class="btn btn-primary">Solve on LeetCode</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Coding Challenges -->
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+        <i class="fas fa-sun"></i>
+    </button>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+
+</body>
+</html>

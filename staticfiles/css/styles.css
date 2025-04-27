@@ -1,0 +1,16 @@
+/* Custom styles for CareerPrep Hub */
+.navbar {
+    margin-bottom: 2rem;
+}
+
+.card {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-tabs {
+    margin-bottom: 1rem;
+}
+
+#resume-analysis, #general-questions, #coding-challenges {
+    min-height: 200px;
+} 

@@ -1,0 +1,248 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Analysis - AI FutureStep</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        .resume-preview {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            background-color: #f8f9fa;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+        }
+        .enhancement-option {
+            transition: all 0.3s ease;
+        }
+        .enhancement-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .analysis-card {
+            transition: all 0.3s ease;
+        }
+        .analysis-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .progress {
+            height: 25px;
+        }
+        .progress-bar {
+            transition: width 1s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">AI FutureStep</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}"><i class="fas fa-home me-1"></i>Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'resume_analysis' %}"><i class="fas fa-file-alt me-1"></i>Resume Analysis</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'interview_prep' %}"><i class="fas fa-comments me-1"></i>Interview Preparation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'about' %}"><i class="fas fa-info-circle me-1"></i>About Us</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle me-1"></i>{{ user.username }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        <h2 class="mb-0"><i class="fas fa-file-alt me-2"></i>Resume Analysis</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>Our AI-powered resume analyzer will extract information from your resume and provide detailed feedback and suggestions for improvement.
+                        </div>
+                        
+                        <form id="resume-form" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="mb-4">
+                                <label for="resume-upload" class="form-label">Upload Your Resume</label>
+                                <div class="input-group">
+                                    <input type="file" class="form-control" id="resume-upload" name="resume" accept=".pdf,.doc,.docx,.txt">
+                                    <button class="btn btn-outline-secondary" type="button" id="clear-file-btn">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                <div class="form-text">Supported formats: PDF, DOC, DOCX, TXT</div>
+                                <div id="file-preview" class="mt-2 d-none">
+                                    <div class="alert alert-success d-flex align-items-center">
+                                        <i class="fas fa-file-alt me-2"></i>
+                                        <span id="file-name"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="form-label">AI Enhancement Options</label>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="card enhancement-option h-100">
+                                            <div class="card-body">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="enhance-content" name="enhance_content" checked>
+                                                    <label class="form-check-label" for="enhance-content">
+                                                        <i class="fas fa-magic me-1 text-primary"></i>Enhance Content Quality
+                                                    </label>
+                                                </div>
+                                                <p class="text-muted small mt-2">Improves language, clarity, and impact of your resume content.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="card enhancement-option h-100">
+                                            <div class="card-body">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="improve-formatting" name="improve_formatting" checked>
+                                                    <label class="form-check-label" for="improve-formatting">
+                                                        <i class="fas fa-paint-brush me-1 text-success"></i>Improve Formatting
+                                                    </label>
+                                                </div>
+                                                <p class="text-muted small mt-2">Enhances layout, spacing, and visual organization of your resume.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="card enhancement-option h-100">
+                                            <div class="card-body">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="keyword-optimization" name="keyword_optimization" checked>
+                                                    <label class="form-check-label" for="keyword-optimization">
+                                                        <i class="fas fa-key me-1 text-warning"></i>Keyword Optimization
+                                                    </label>
+                                                </div>
+                                                <p class="text-muted small mt-2">Adds industry-specific keywords to improve searchability.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="card enhancement-option h-100">
+                                            <div class="card-body">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="ats-compatibility" name="ats_compatibility" checked>
+                                                    <label class="form-check-label" for="ats-compatibility">
+                                                        <i class="fas fa-robot me-1 text-info"></i>ATS Compatibility Check
+                                                    </label>
+                                                </div>
+                                                <p class="text-muted small mt-2">Ensures your resume is optimized for Applicant Tracking Systems.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <i class="fas fa-upload me-1"></i>Analyze Resume
+                                </button>
+                            </div>
+                        </form>
+                        
+                        <div id="analysis-progress" class="mt-4 d-none">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Analysis in Progress</h5>
+                                    <div class="progress mb-3">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%" id="analysis-progress-bar"></div>
+                                    </div>
+                                    <p class="text-center" id="analysis-status">Initializing AI analysis...</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="resume-analysis" class="mt-4">
+                            <!-- Analysis results will be displayed here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- AI Quality Enhancer Section -->
+                <div class="card mt-4 shadow-sm">
+                    <div class="card-header bg-success text-white">
+                        <h3 class="mb-0"><i class="fas fa-magic me-2"></i>AI Quality Enhancer</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Our advanced AI will analyze your resume and:</p>
+                        <ul class="list-group list-group-flush mb-3">
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>Extract and analyze your skills, experience, and qualifications</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>Improve language and phrasing for clarity and impact</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>Suggest stronger action verbs and quantifiable achievements</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>Optimize for Applicant Tracking Systems (ATS)</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>Enhance formatting for better readability</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>Identify and fill content gaps</li>
+                        </ul>
+                        
+                        <div class="alert alert-success">
+                            <i class="fas fa-lightbulb me-2"></i>After analysis, you'll receive a detailed report with specific recommendations and an enhanced version of your resume.
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-success btn-lg" id="enhance-resume-btn" disabled>
+                                <i class="fas fa-magic me-1"></i>Enhance My Resume
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Resume Preview Section -->
+                <div class="card mt-4 shadow-sm d-none" id="preview-section">
+                    <div class="card-header">
+                        <h3 class="mb-0"><i class="fas fa-eye me-2"></i>Resume Preview</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="resume-preview" id="resume-preview-content">
+                            <!-- Resume preview will be displayed here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+        <i class="fas fa-sun"></i>
+    </button>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/resume_analysis.js' %}"></script>
+</body>
+</html> 

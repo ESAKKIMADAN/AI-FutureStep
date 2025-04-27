@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - AI FutureStep</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'index' %}">AI FutureStep</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'index' %}"><i class="fas fa-home me-1"></i>Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'about' %}"><i class="fas fa-info-circle me-1"></i>About Us</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}"><i class="fas fa-sign-in-alt me-1"></i>Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register' %}"><i class="fas fa-user-plus me-1"></i>Register</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="mb-4">About AI FutureStep</h2>
+                        
+                        <div class="mb-4">
+                            <h4>Our Mission</h4>
+                            <p>AI FutureStep is dedicated to helping individuals prepare for their future careers through advanced AI-powered tools and resources. We believe that everyone deserves access to high-quality career preparation tools that can help them succeed in today's competitive job market.</p>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <h4>What We Offer</h4>
+                            <ul class="list-group list-group-flush mb-3">
+                                <li class="list-group-item bg-transparent">
+                                    <i class="fas fa-file-alt me-2 text-primary"></i>
+                                    <strong>Resume Analysis:</strong> Get personalized feedback on your resume to make it stand out to employers.
+                                </li>
+                                <li class="list-group-item bg-transparent">
+                                    <i class="fas fa-comments me-2 text-primary"></i>
+                                    <strong>Interview Preparation:</strong> Practice with AI-generated interview questions tailored to your field.
+                                </li>
+                                <li class="list-group-item bg-transparent">
+                                    <i class="fas fa-code me-2 text-primary"></i>
+                                    <strong>Coding Challenges:</strong> Enhance your technical skills with practice problems and solutions.
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <h4>Our Technology</h4>
+                            <p>We leverage cutting-edge artificial intelligence and machine learning technologies to provide personalized career guidance. Our AI algorithms analyze your resume, generate relevant interview questions, and offer tailored recommendations to help you succeed in your job search.</p>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <h4>Our Team</h4>
+                            <p>AI FutureStep was founded by a team of career counselors, software engineers, and AI researchers who are passionate about helping people achieve their career goals. We combine expertise in career development with advanced technology to create a powerful platform for job seekers.</p>
+                        </div>
+                        
+                        <div>
+                            <h4>Contact Us</h4>
+                            <p>Have questions or feedback? We'd love to hear from you!</p>
+                            <p><i class="fas fa-envelope me-2"></i>Email: contact@aifuturestep.com</p>
+                            <p><i class="fas fa-phone me-2"></i>Phone: (555) 123-4567</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+        <i class="fas fa-sun"></i>
+    </button>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html> 
